@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDisplay = document.getElementById("total");
     const searchInput = document.getElementById("search");
     const exportBtn = document.getElementById("export-btn");
+    const exportTextBtn = document.getElementById("export-text-btn");
     const startBtn = document.getElementById("start-amount-btn");
     const startInput = document.getElementById("start-amount");
     const balanceDisplay = document.getElementById("balance-display");
@@ -74,10 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
       updateTable(searchInput.value);
     });
   
+    // Export to CSV
     exportBtn.addEventListener("click", () => {
-      let csv = "Description,Amount (KES)\\n";
+      let csv = "Description,Amount (KES)\n";
       expenses.forEach(exp => {
-        csv += `"${exp.description}",${exp.amount}\\n`;
+        csv += `"${exp.description}",${exp.amount}\n`;
       });
   
       const blob = new Blob([csv], { type: "text/csv" });
@@ -89,7 +91,31 @@ document.addEventListener("DOMContentLoaded", () => {
       URL.revokeObjectURL(url);
     });
   
-    // Initial table load
+    // Export to Text (List Format)
+    exportTextBtn.addEventListener("click", () => {
+      let text = "Expenditure Journal\n------------------------\n";
+      let total = 0;
+  
+      expenses.forEach((exp, i) => {
+        text += `${i + 1}. ${exp.description} - ${exp.amount.toFixed(2)} KES\n`;
+        total += exp.amount;
+      });
+  
+      const balance = startingAmount - total;
+      text += "------------------------\n";
+      text += `Total: ${total.toFixed(2)} KES\n`;
+      text += `Balance Left: ${balance.toFixed(2)} KES`;
+  
+      const blob = new Blob([text], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "expenditure_report.txt";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  
+    // Initial load
     updateTable();
   });
   
