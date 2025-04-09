@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenditure Journal</title>
+  <link rel="stylesheet" href="styles/expenditure.css">
+</head>
+<body>
+
+  <h1>Millen's Expenditure Journal</h1>
+
+  <form id="expense-form">
+    <input type="text" id="desc" placeholder="Description" required>
+    <input type="number" id="amount" placeholder="Amount (KES)" required>
+    <button type="submit">Add Expense</button>
+  </form>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Filter by description or amount..." />
+    <button id="export-btn">Export to CSV</button>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Amount (KES)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="expense-table-body"></tbody>
+    <tfoot>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td id="total">0</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="scripts/expenditure.js"></script>
+</body>
+</html>
