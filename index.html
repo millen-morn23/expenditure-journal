@@ -8,7 +8,14 @@
 </head>
 <body>
 
-  <h1>Millen's Expenditure Journal . </h1>
+  <h1>Millen's Expenditure Journal</h1>
+
+  <div class="budget-start">
+    <input type="number" id="start-amount" placeholder="Set your starting amount (KES)" />
+    <button id="start-amount-btn">Set Starting Amount</button>
+  </div>
+
+  <p id="balance-display"><strong>Balance Left:</strong> 0 KES</p>
 
   <form id="expense-form">
     <input type="text" id="desc" placeholder="Description" required>
@@ -20,7 +27,7 @@
     <input type="text" id="search" placeholder="Filter by description or amount..." />
     <button id="export-btn">Export to CSV</button>
   </div>
-  
+
   <table>
     <thead>
       <tr>
@@ -34,6 +41,7 @@
       <tr>
         <td><strong>Total</strong></td>
         <td id="total">0</td>
+        <td></td>
       </tr>
     </tfoot>
   </table>

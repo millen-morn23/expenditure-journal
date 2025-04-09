@@ -8,7 +8,7 @@ body {
     text-align: center;
   }
   
-  form {
+  form, .budget-start, .controls {
     margin: 1rem 0;
     text-align: center;
   }
@@ -27,6 +27,13 @@ body {
     cursor: pointer;
   }
   
+  #balance-display {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    font-weight: bold;
+  }
+  
   table {
     width: 100%;
     border-collapse: collapse;
@@ -42,11 +49,6 @@ body {
   
   tfoot td {
     font-weight: bold;
-  }
-  
-  .controls {
-    text-align: center;
-    margin: 1rem 0;
   }
   
   .controls input {

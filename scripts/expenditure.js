@@ -6,8 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalDisplay = document.getElementById("total");
     const searchInput = document.getElementById("search");
     const exportBtn = document.getElementById("export-btn");
+    const startBtn = document.getElementById("start-amount-btn");
+    const startInput = document.getElementById("start-amount");
+    const balanceDisplay = document.getElementById("balance-display");
   
     let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+    let startingAmount = parseFloat(localStorage.getItem("startingAmount")) || 0;
+  
+    startBtn.addEventListener("click", () => {
+      const input = parseFloat(startInput.value);
+      if (!isNaN(input) && input > 0) {
+        startingAmount = input;
+        localStorage.setItem("startingAmount", startingAmount);
+        updateTable(searchInput.value);
+      }
+    });
   
     function updateTable(filter = "") {
       tableBody.innerHTML = "";
@@ -31,6 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   
       totalDisplay.textContent = total.toFixed(2);
+      const balance = startingAmount - total;
+      balanceDisplay.textContent = `Balance Left: ${balance.toFixed(2)} KES`;
+  
       localStorage.setItem("expenses", JSON.stringify(expenses));
     }
   
@@ -59,9 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   
     exportBtn.addEventListener("click", () => {
-      let csv = "Description,Amount (KES)\n";
+      let csv = "Description,Amount (KES)\\n";
       expenses.forEach(exp => {
-        csv += `"${exp.description}",${exp.amount}\n`;
+        csv += `"${exp.description}",${exp.amount}\\n`;
       });
   
       const blob = new Blob([csv], { type: "text/csv" });
@@ -73,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       URL.revokeObjectURL(url);
     });
   
+    // Initial table load
     updateTable();
   });
   
